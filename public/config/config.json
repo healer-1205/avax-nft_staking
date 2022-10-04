@@ -1,0 +1,19 @@
+{
+    "CONTRACT_ADDRESS": "0xd30384E307E6DD436877340C4b1517303A7cA684",
+    "SCAN_LINK": "https://cchain.explorer.avax-test.network/address/0xd30384E307E6DD436877340C4b1517303A7cA684/transactions",
+    "NETWORK": {
+        "NAME": "Avalanche Fuji Testnet",
+        "SYMBOL": "AVAX",
+        "ID": 43113,
+        "RPC_URL": "https://api.avax-test.network/ext/bc/C/rpc"
+    },
+    "NFT_NAME": "Wolf of AVAX",
+    "SYMBOL": "WOA",
+    "MAX_SUPPLY": 8888,
+    "WEI_COST": 2500000000000000000,
+    "DISPLAY_COST": 2.5,
+    "GAS_LIMIT": 300000,
+    "MARKETPLACE": "Wolf of AVAX",
+    "MARKETPLACE_LINK": "https://opensea.io/collection/wolf-of-avax",
+    "SHOW_BACKGROUND": true
+}

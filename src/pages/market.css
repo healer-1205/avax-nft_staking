@@ -1,0 +1,290 @@
+.mywoas-container{
+    color: white;
+    background-color: black;
+}
+.my-woas-header{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 100px;
+}
+.woas-img{
+    max-width: 250px;
+    border-radius: 10px;
+    padding: 20px;
+    transition: 0.2s all linear;
+    
+}
+.woas-img:hover{
+    opacity: 0.7;
+}
+.user-transection{
+    font-size: 0.8rem;
+    appearance: none;
+    color: white;
+    padding: 4px 16px;
+    border-radius: 8px;
+    border: none;
+    overflow: hidden;
+    transition: all 0.3s ease 0s;
+    outline: none;
+    cursor: initial;
+    background: rgb(22, 88, 104) !important;
+}
+.user-transection:hover{
+    background: rgb(22, 88, 104,0.6) !important;
+
+}
+.my-woa-buttons{
+    text-align: right;
+}
+.my-woa-row {
+    align-items: baseline;
+}
+.my-woa-row-purchased {
+    align-items: baseline;
+    min-height: 70vh;
+}
+.woa-btn-header{
+    font-size: 1.2rem;
+}
+.woa-btn span img{
+    margin-left: 10px;
+    margin-right: 10px !important;
+}
+.claim-btn{
+    appearance: none;
+    color: white;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    font-size: 0.8rem;
+    background: rgb(210, 64, 52);
+    overflow: hidden;
+    transition: all 0.3s ease 0s;
+    outline: none;
+}
+.claim-btn:hover{
+    
+    background: rgb(210, 64, 52,0.6);
+}
+.my-woas-header-small-market{
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    --tw-text-opacity: 1;
+    color: rgba(255,255,255,var(--tw-text-opacity));
+    font-weight: 400;
+    padding-bottom: 20px;
+}
+.purchased-woa{
+    width: 100%;
+    border-radius: 20px;
+
+}
+.modal-name-code{
+    padding-top: 10px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.body-modal{
+    width: 70%;
+    transform: translate(20%,0%);
+    user-select: none !important;
+
+}
+
+.container-img {
+    position: relative;
+    width: 100%;
+    
+  }
+  
+  .image {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 0px 10px gray;
+
+  }
+  
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f1f1f1e5;
+    overflow: hidden;
+    width: 0;
+    height: 100%;
+    transition: .5s ease;
+    z-index: 99999;
+    
+  }
+  
+  .container-img:hover .overlay {
+    width: 100%;
+  }
+
+  
+  .text {
+      user-select: none;
+    font-size: 20px;
+    white-space: nowrap;
+    color: black;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    
+}
+
+  .value-total{
+      margin-left: 10px;
+    font-weight: 300;
+    font-size: 17px;
+  }
+  .value-total-small{
+      margin-left: 10px;
+    font-weight: 300;
+  }
+.floor-price{
+    text-align: center;
+}
+.floor{
+    text-align: center;
+}
+
+.floor h6{
+    font-weight: 400;
+
+}
+.common{
+    background-color: #65A833;
+    color: white;
+    width: fit-content;
+    margin: 5px;
+    padding: 5px 10px;
+    padding-top:2px;
+    border-radius: 25px;
+    width: 60px;
+    text-align: center;
+    text-transform: capitalize;
+    width: fit-content;
+
+}
+.buy{
+    margin-top: 20px;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 25px;
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.buy span{
+    font-weight: 700;
+}
+.id-woa{
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+}
+.number-woa{
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+    margin-top: 20px;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 25px;
+    text-align: center;
+    padding: 3px 8px;
+    width: fit-content !important;
+    font-size: 12px;
+}
+.woa-common{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 14px;
+    width: fit-content;
+
+}
+.filter-dropdown .form-select{
+    color: white;
+    background-color: black;
+    background-image: url('https://www.freeiconspng.com/thumbs/white-arrow-png/white-down-arrow-png-2.png');
+}
+
+.view-more{
+    text-align: center;
+    margin-top: 25px;
+    color: black;
+    cursor: pointer;
+    
+}
+.body-value{
+    margin-left: 2%;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: white;
+    letter-spacing: 0.5px;
+    animation: 3s letter infinite;
+    float: right;
+}
+.body-label{
+    color: gray;
+    width: 100%;
+    padding: 5px;
+    border-radius: 40px;
+}
+.woa-sort{
+    float: right;
+}
+.modal-deta{
+    padding: 10px;
+    background-color: black;
+
+}
+.filter-dropdown{
+    display: flex;
+    transition: 0.5s all linear;
+}
+.filter-dropdown .drop-down{
+    width: 100%;
+    color: white;
+    border: 1px solid white;
+    z-index: 99999999 !important;
+}
+.no-display{
+    display: none;
+}
+
+@keyframes letter {
+    0% {
+        letter-spacing: 0px;
+    }
+    50% {
+        letter-spacing: 1px;
+    }
+    100% {
+        letter-spacing: 0px;
+    }
+  }
+
+
+@media only screen and (max-width:576px) {
+    .woas-img{
+        max-width: 100%;
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+        
+    }
+}
