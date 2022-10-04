@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Row, Col, Offcanvas } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { HiMenu } from 'react-icons/hi';
@@ -53,8 +53,8 @@ export const Header: React.FC = () => {
 							return (
 								<li key={index}  >
 									{
-										nav.name == 'Docs' ?
-											<a href={nav.link} target="_blank" className={activeIndex === index ? "cool-link active" : "cool-link"} onClick={() => setActiveIndex(index)} >
+										nav.name === 'Docs' ?
+											<a href={nav.link} target="_blank" rel="noreferrer" className={activeIndex === index ? "cool-link active" : "cool-link"} onClick={() => setActiveIndex(index)} >
 												{nav.name}
 											</a>
 											:
@@ -81,12 +81,12 @@ export const Header: React.FC = () => {
 							return (
 								<li key={index} >
 									{
-										nav.name == 'Docs' ?
-											<a href={nav.link} target="_blank" className={activeIndex === index ? "cool-link active" : "cool-link"} onClick={() => setActiveIndex(index)} >
+										nav.name === 'Docs' ?
+											<a href={nav.link} target="_blank" rel="noreferrer" className={activeIndex === index ? "cool-link active" : "cool-link"} onClick={() => setActiveIndex(index)} >
 												{nav.name}
 											</a>
 											:
-											<Link to={nav.link} className={activeIndex == index ? "cool-link active" : "cool-link"} onClick={() => setActiveIndex(index)} >
+											<Link to={nav.link} className={activeIndex === index ? "cool-link active" : "cool-link"} onClick={() => setActiveIndex(index)} >
 												{nav.name}
 											</Link>
 									}

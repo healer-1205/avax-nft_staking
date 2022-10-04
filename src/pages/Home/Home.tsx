@@ -4,6 +4,7 @@ import { MdArrowBackIos, MdOutlinePlayArrow } from 'react-icons/md';
 import { Slide, Zoom } from "react-awesome-reveal";
 import './Home.css';
 import { Header } from '../../components/Header'
+import { Footer } from '../../components/Footer'
 import MintImg from '../../assets/images/mintimg.png'
 import Roll from '../../assets/images/roll.png'
 import PicBlue from '../../assets/images/picblue.png'
@@ -146,24 +147,9 @@ export const Home: React.FC = () => {
 							</li>
 						</ul>
 					</Slide>
-					<Slide direction='down' duration={300}  >
-						<ul className='roadmap-text'>
-							<li >
-								<p>25% Wolf of AVAX mint has begun, and to celebrate we will airdrop 2 Wolves to our pack.</p>
-							</li>
-							<li >
-								<p>5 Wolves will be randomly airdropped to minters along with 5 $AVAX. </p>
-							</li>
-							<li >
-								<p>75%  10 Wolves will be raffled along with 10 $AVAX to our pack.</p>
-							</li>
-							<li >
-								<p>100% Mint is complete and the fun begins!</p>
-							</li>
-						</ul>
-					</Slide>
 				</Container>
 			</div>
+			<Footer />
 		</div>
 	)
 }
