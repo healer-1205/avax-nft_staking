@@ -1,8 +1,8 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Row, Col, Container, Accordion } from "react-bootstrap"
 import { MdArrowBackIos, MdOutlinePlayArrow } from "react-icons/md"
 import { Slide, Zoom } from "react-awesome-reveal"
-import { useAccount, useContract, useSigner, useProvider, useConnect } from "wagmi"
+import { useAccount, useContract, useSigner, useProvider, useConnect, useContractRead } from "wagmi"
 import { NFTContract } from "../../contracts"
 import NFTContractABI from "../../abis/NFTContract.json"
 import config from "../../config"
@@ -22,17 +22,25 @@ import WolfMember from "../../assets/images/roadmap/wolf_member.png"
 import Airdroppe from "../../assets/images/roadmap/Airdroppe.jpg"
 import RAFFLE from "../../assets/images/roadmap/RAFFLE.jpg"
 import WolfStore from "../../assets/images/roadmap/wolf_store.png"
+import * as ethers from "ethers"
 
 export const Home: React.FC = () => {
   const provider = useProvider({ chainId: config.networkId })
   const { isConnected } = useAccount()
   const { data: signerData } = useSigner()
   const { connect, connectors } = useConnect()
+  const [nftCost, setNFTCost] = useState<ethers.BigNumber>()
   const nftContract = useContract<NFTContract>({
     addressOrName: config.nftContractAddrss,
     signerOrProvider: isConnected ? signerData : provider,
     contractInterface: NFTContractABI,
   })
+  useEffect(() => {
+    if (!nftContract.signer && !nftContract.provider) return
+    nftContract.cost().then((res) => {
+      setNFTCost(res)
+    })
+  }, [nftContract])
 
   const [mintAmount, setMintAmount] = useState<number>(1)
 
@@ -117,19 +125,28 @@ export const Home: React.FC = () => {
           <Slide direction="up" cascade duration={100}>
             <h3 className="mt-4 dont-miss-text">You don’t want to miss out, join our ventures.</h3>
             <div className="sell-container">
-              <button onClick={decrementMintAmount}>-</button>
+              <button className="calc-btn" onClick={decrementMintAmount}>
+                -
+              </button>
               <span className="value-sell">{mintAmount}</span>
-              <button onClick={incrementMintAmount}>+</button>
+              <button className="calc-btn" onClick={incrementMintAmount}>
+                +
+              </button>
               {isConnected ? (
-                <span
+                <button
+                  disabled={!nftCost || !nftContract.signer}
                   className="sell-btn"
-                  onClick={(e) => {
+                  onClick={async (e) => {
                     e.preventDefault()
-                    // nftContract.mint(mintAmount)
+                    if (!nftCost || !nftContract.signer) return
+                    nftContract
+                      .mint(mintAmount, { value: nftCost.mul(mintAmount) })
+                      .then()
+                      .catch(console.error)
                   }}
                 >
                   MINT NOW
-                </span>
+                </button>
               ) : (
                 <span
                   className="sell-btn"
