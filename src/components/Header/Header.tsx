@@ -51,7 +51,7 @@ const ClaimButton: React.FC<{ className?: string }> = ({ className }) => {
             })
         }}
       >
-        Claim {rewards?.toNumber()}
+        Claim
       </Button>
     ) : (
       <Button

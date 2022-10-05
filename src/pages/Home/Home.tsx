@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Row, Col, Container, Accordion } from "react-bootstrap"
 import { MdArrowBackIos, MdOutlinePlayArrow } from "react-icons/md"
 import { Slide, Zoom } from "react-awesome-reveal"
-import { useAccount, useContract, useSigner, useProvider, useConnect, useContractRead } from "wagmi"
+import { useAccount, useContract, useSigner, useProvider, useConnect } from "wagmi"
 import { NFTContract } from "../../contracts"
 import NFTContractABI from "../../abis/NFTContract.json"
 import config from "../../config"
@@ -43,6 +43,7 @@ export const Home: React.FC = () => {
   }, [nftContract])
 
   const [mintAmount, setMintAmount] = useState<number>(1)
+  const [isClaimingNft, setIsClaimingNft] = useState<boolean>(false)
 
   const incrementMintAmount = () => {
     let newMintAmount = mintAmount + 1
@@ -134,18 +135,22 @@ export const Home: React.FC = () => {
               </button>
               {isConnected ? (
                 <button
-                  disabled={!nftCost || !nftContract.signer}
+                  disabled={!nftCost || !nftContract.signer || isClaimingNft}
                   className="sell-btn"
                   onClick={async (e) => {
                     e.preventDefault()
+                    setIsClaimingNft(true)
                     if (!nftCost || !nftContract.signer) return
                     nftContract
                       .mint(mintAmount, { value: nftCost.mul(mintAmount) })
-                      .then()
-                      .catch(console.error)
+                      .then(() => setIsClaimingNft(false))
+                      .catch((error) => {
+                        console.log(error)
+                        setIsClaimingNft(false)
+                      })
                   }}
                 >
-                  MINT NOW
+                  {isClaimingNft ? "MINTING" : "MINT NOW"}
                 </button>
               ) : (
                 <span
