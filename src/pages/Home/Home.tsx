@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Row, Col, Container, Accordion } from "react-bootstrap"
 import { MdArrowBackIos, MdOutlinePlayArrow } from "react-icons/md"
 import { Slide, Zoom } from "react-awesome-reveal"
@@ -33,6 +33,24 @@ export const Home: React.FC = () => {
     signerOrProvider: isConnected ? signerData : provider,
     contractInterface: NFTContractABI,
   })
+
+  const [mintAmount, setMintAmount] = useState<number>(1)
+
+  const incrementMintAmount = () => {
+    let newMintAmount = mintAmount + 1
+    if (newMintAmount > 20) {
+      newMintAmount = 20
+    }
+    setMintAmount(newMintAmount)
+  }
+
+  const decrementMintAmount = () => {
+    let newMintAmount = mintAmount - 1
+    if (newMintAmount < 1) {
+      newMintAmount = 1
+    }
+    setMintAmount(newMintAmount)
+  }
 
   return (
     <div className="home-container">
@@ -99,14 +117,15 @@ export const Home: React.FC = () => {
           <Slide direction="up" cascade duration={100}>
             <h3 className="mt-4 dont-miss-text">You don’t want to miss out, join our ventures.</h3>
             <div className="sell-container">
-              <button>-</button>
-              <span className="value-sell"></span> <button>+</button>
+              <button onClick={decrementMintAmount}>-</button>
+              <span className="value-sell">{mintAmount}</span>
+              <button onClick={incrementMintAmount}>+</button>
               {isConnected ? (
                 <span
                   className="sell-btn"
                   onClick={(e) => {
                     e.preventDefault()
-                    // nftContract.mint()
+                    // nftContract.mint(mintAmount)
                   }}
                 >
                   MINT NOW
