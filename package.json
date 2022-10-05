@@ -13,6 +13,7 @@
     "@types/react-bootstrap": "^0.32.30",
     "@types/react-dom": "^17.0.0",
     "bootstrap": "^5.2.2",
+    "ethers": "^5.7.1",
     "react": "^17.0.2",
     "react-awesome-reveal": "^4.0.1",
     "react-bootstrap": "^2.5.0",
@@ -20,7 +21,7 @@
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.4.1",
     "react-scripts": "4.0.3",
-    "typescript": "^4.1.2",
+    "typescript": "4.5.5",
     "wagmi": "^0.6.7",
     "web-vitals": "^1.0.1"
   },
@@ -28,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "contract-typings": "typechain --target=ethers-v5 --out-dir src/contracts src/abi/*.json"
   },
   "eslintConfig": {
     "extends": [
@@ -47,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@typechain/ethers-v5": "^10.1.0"
   }
 }
