@@ -1,25 +1,89 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Row, Col, Offcanvas } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { HiMenu } from "react-icons/hi"
-import { useAccount, useConnect, useNetwork, useSwitchNetwork } from "wagmi"
+import { useAccount, useConnect, useContract, useNetwork, useProvider, useSigner, useSwitchNetwork } from "wagmi"
 
 import Logo from "../../assets/images/logo.png"
 import "./Header.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 import Button from "@restart/ui/esm/Button"
 import config from "../../config"
+import { NFTContract } from "../../contracts"
+import NFTContractABI from "../../abis/NFTContract.json"
+import * as ethers from "ethers"
+
+const ClaimButton: React.FC<{ className?: string }> = ({ className }) => {
+  const { isConnected } = useAccount()
+  const { connect, connectors } = useConnect()
+  const { switchNetwork } = useSwitchNetwork()
+  const { chain } = useNetwork()
+  const [rewards, setRewards] = useState<ethers.BigNumber>()
+
+  const provider = useProvider({ chainId: config.networkId })
+  const { data: signerData } = useSigner()
+
+  const nftContract = useContract<NFTContract>({
+    addressOrName: config.nftContractAddrss,
+    signerOrProvider: isConnected ? signerData : provider,
+    contractInterface: NFTContractABI,
+  })
+
+  useEffect(() => {
+    if (!nftContract.signer) return
+    nftContract.claimableRewards().then((res) => {
+      setRewards(res)
+    })
+  }, [nftContract])
+
+  return isConnected ? (
+    config.networkId === chain?.id ? (
+      <Button
+        className={className}
+        onClick={async (event) => {
+          event.preventDefault()
+          if (!nftContract.signer) return
+          nftContract
+            .claimRewards()
+            .then((res) => {})
+            .catch((err) => {
+              console.log(err)
+            })
+        }}
+      >
+        Claim {rewards?.toNumber()}
+      </Button>
+    ) : (
+      <Button
+        className={className}
+        onClick={(event) => {
+          event.preventDefault()
+          switchNetwork?.(config.networkId)
+        }}
+      >
+        SwitchNetwork
+      </Button>
+    )
+  ) : (
+    <Button
+      className={className}
+      onClick={(event) => {
+        event.preventDefault()
+        const [metamaskConnector] = connectors.filter((_connector) => _connector.id === "injected")
+        if (!metamaskConnector) return
+        connect({ connector: metamaskConnector })
+      }}
+    >
+      Connect
+    </Button>
+  )
+}
 
 export const Header: React.FC = () => {
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   const [activeIndex, setActiveIndex] = useState(-1)
-
-  const { isConnected } = useAccount()
-  const { connect, connectors } = useConnect()
-  const { switchNetwork } = useSwitchNetwork()
-  const { chain } = useNetwork()
 
   const navLinks = [
     {
@@ -82,9 +146,7 @@ export const Header: React.FC = () => {
                 </li>
               )
             })}
-            <li className="btn-connect small-nav mt-5">
-              <Link to={"/"}>Connect</Link>
-            </li>
+            <ClaimButton className="btn-connect small-nav mt-5" />
           </ul>
         </Offcanvas.Body>
       </Offcanvas>
@@ -119,34 +181,7 @@ export const Header: React.FC = () => {
                 </li>
               )
             })}
-
-            {isConnected ? (
-              config.networkId === chain?.id ? (
-                <Button className="btn-connect">Connected</Button>
-              ) : (
-                <Button
-                  className="btn-connect"
-                  onClick={(event) => {
-                    event.preventDefault()
-                    switchNetwork?.(config.networkId)
-                  }}
-                >
-                  SwitchNetwork
-                </Button>
-              )
-            ) : (
-              <Button
-                className="btn-connect"
-                onClick={(event) => {
-                  event.preventDefault()
-                  const [metamaskConnector] = connectors.filter((_connector) => _connector.id === "injected")
-                  if (!metamaskConnector) return
-                  connect({ connector: metamaskConnector })
-                }}
-              >
-                Connect
-              </Button>
-            )}
+            <ClaimButton className="btn-connect" />
           </ul>
         </Col>
         <Col xs={1} className="menu-icon">
