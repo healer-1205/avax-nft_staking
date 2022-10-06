@@ -12,6 +12,7 @@ import config from "../../config"
 import { NFTContract } from "../../contracts"
 import NFTContractABI from "../../abis/NFTContract.json"
 import * as ethers from "ethers"
+import { formatEther } from "ethers/lib/utils"
 
 const ClaimButton: React.FC<{ className?: string }> = ({ className }) => {
   const { isConnected } = useAccount()
@@ -43,15 +44,12 @@ const ClaimButton: React.FC<{ className?: string }> = ({ className }) => {
         onClick={async (event) => {
           event.preventDefault()
           if (!nftContract.signer) return
-          nftContract
-            .claimRewards()
-            .then((res) => {})
-            .catch((err) => {
-              console.log(err)
-            })
+          nftContract.claimRewards().catch((err) => {
+            console.log(err)
+          })
         }}
       >
-        Claim
+        Claim{rewards ? formatEther(rewards) : ""}
       </Button>
     ) : (
       <Button

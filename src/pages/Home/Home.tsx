@@ -36,11 +36,13 @@ export const Home: React.FC = () => {
     contractInterface: NFTContractABI,
   })
   useEffect(() => {
-    if (!nftContract.signer || !nftContract.provider) return
-    nftContract.cost().then((res) => {
-      console.log(res)
-      setNFTCost(res)
-    })
+    if (!nftContract.signer) return
+    nftContract
+      .cost()
+      .then((res) => {
+        setNFTCost(res)
+      })
+      .catch(console.error)
   }, [nftContract])
 
   const [mintAmount, setMintAmount] = useState<number>(1)
