@@ -1,4 +1,15 @@
 .journey-container {
 	color: white;
 	background-color: black;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+.journey-container .content {
+	flex-grow: 1;
+}
+
+.journey-container .content .journey-row {
+	margin-top: 3rem;
 }
