@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Button, Col, Container, Row } from "react-bootstrap"
+import { Button, Col, Container, Row, Modal } from "react-bootstrap"
 import { ethers } from "ethers"
 import { useAccount, useContract, useProvider, useSigner } from "wagmi"
 import { Header } from "../../components/Header"
@@ -14,11 +14,14 @@ type NFTTokenType = { id: ethers.BigNumber; approved: boolean }
 
 export const Journey: React.FC = () => {
   const { isConnected } = useAccount()
-
-  const [nftTokens, setNftTokens] = useState<Array<NFTTokenType>>([])
-
   const provider = useProvider({ chainId: config.networkId })
   const { data: signerData } = useSigner()
+
+  const [nftTokens, setNftTokens] = useState<Array<NFTTokenType>>([])
+  const [modalShow, setModalShow] = useState<boolean>(false)
+
+  const handleModalClose = () => setModalShow(false)
+  const handleModalShow = () => setModalShow(true)
 
   const nftContract = useContract<NFTContract>({
     addressOrName: config.nftContractAddrss,
@@ -63,6 +66,17 @@ export const Journey: React.FC = () => {
   return (
     <div className="journey-container">
       <Header />
+      <Modal show={modalShow} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Staking Status Alert</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Your NFT staked Successfully!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModalClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Container className="content">
         <Row className="journey-row">
           {nftTokens.map((_nftToken) => {
@@ -78,6 +92,7 @@ export const Journey: React.FC = () => {
                         .stake(_nftToken.id)
                         .then(() => {
                           setNftTokens(nftTokens.filter((item) => _nftToken.id !== item.id))
+                          handleModalShow()
                         })
                         .catch(console.error)
                     else
