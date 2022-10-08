@@ -9,7 +9,6 @@ import config from "../../config"
 import { NFTContract, ERC721Staking } from "../../contracts"
 import NFTContractABI from "../../abis/NFTContract.json"
 import ERC721StakingABI from "../../abis/ERC721Staking.json"
-import { log } from "console"
 
 type NFTTokenType = { id: ethers.BigNumber; approved: boolean }
 
@@ -77,7 +76,9 @@ export const Journey: React.FC = () => {
                     if (_nftToken.approved)
                       stakingContract
                         .stake(_nftToken.id)
-                        .then(() => console.log("success"))
+                        .then(() => {
+                          setNftTokens(nftTokens.filter((item) => _nftToken.id !== item.id))
+                        })
                         .catch(console.error)
                     else
                       nftContract
